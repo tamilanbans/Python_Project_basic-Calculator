@@ -40,6 +40,9 @@ def clear_entries():
     entry_num1.delete(0, tk.END)
     entry_num2.delete(0, tk.END)
 
+def set_operation(op):
+    operation_var.set(op)
+
 # Create the main application window
 app = tk.Tk()
 app.title("Basic Calculator")
@@ -57,10 +60,14 @@ label_num2.grid(row=1, column=0, padx=10, pady=5)
 entry_num2 = tk.Entry(app)
 entry_num2.grid(row=1, column=1, padx=10, pady=5)
 
-# Dropdown for operations
-operation_var = tk.StringVar(value="+")
-operations_menu = tk.OptionMenu(app, operation_var, "+", "-", "*", "/")
-operations_menu.grid(row=2, column=0, columnspan=2, pady=5)
+# Operation buttons
+operations_frame = tk.Frame(app)
+operations_frame.grid(row=2, column=0, columnspan=2, pady=5)
+
+operations = ['+', '-', '*', '/']
+for i, op in enumerate(operations):
+    button = tk.Button(operations_frame, text=op, width=5, command=lambda o=op: set_operation(o))
+    button.grid(row=0, column=i, padx=5, pady=5)
 
 # Add number pad and symbols
 buttons_frame = tk.Frame(app)
@@ -84,6 +91,9 @@ button_calculate.grid(row=4, column=0, columnspan=2, pady=10)
 # Result label
 label_result = tk.Label(app, text="Result: ")
 label_result.grid(row=5, column=0, columnspan=2, pady=5)
+
+# Operation variable
+operation_var = tk.StringVar(value="+")
 
 # Run the application
 app.mainloop()
