@@ -27,13 +27,18 @@ def calculate():
         messagebox.showerror("Error", "Please enter valid numbers.")
 
 def append_to_entry(value):
-    current = entry_num1.get() if entry_num1.focus_get() else entry_num2.get()
-    if entry_num1.focus_get():
+    if entry_num1.focus_get() == entry_num1:
+        current = entry_num1.get()
         entry_num1.delete(0, tk.END)
         entry_num1.insert(0, current + value)
-    elif entry_num2.focus_get():
+    elif entry_num2.focus_get() == entry_num2:
+        current = entry_num2.get()
         entry_num2.delete(0, tk.END)
         entry_num2.insert(0, current + value)
+
+def clear_entries():
+    entry_num1.delete(0, tk.END)
+    entry_num2.delete(0, tk.END)
 
 # Create the main application window
 app = tk.Tk()
@@ -71,10 +76,6 @@ buttons = [
 for (text, row, col) in buttons:
     button = tk.Button(buttons_frame, text=text, width=5, command=lambda t=text: append_to_entry(t) if t != 'C' else clear_entries())
     button.grid(row=row, column=col, padx=5, pady=5)
-
-def clear_entries():
-    entry_num1.delete(0, tk.END)
-    entry_num2.delete(0, tk.END)
 
 # Calculate button
 button_calculate = tk.Button(app, text="Calculate", command=calculate)
