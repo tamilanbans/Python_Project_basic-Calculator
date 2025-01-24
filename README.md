@@ -44,3 +44,5 @@ Run the application:
 
 python calculator_app.py
 
+Inside dist .exe file available to run this application in windows system
+
