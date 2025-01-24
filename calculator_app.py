@@ -42,6 +42,14 @@ def clear_entries():
 
 def set_operation(op):
     operation_var.set(op)
+    highlight_selected_operator(op)
+
+def highlight_selected_operator(selected_op):
+    for op, button in operator_buttons.items():
+        if op == selected_op:
+            button.config(bg="#FFA07A")  # Light salmon color
+        else:
+            button.config(bg="SystemButtonFace")
 
 # Create the main application window
 app = tk.Tk()
@@ -65,9 +73,12 @@ operations_frame = tk.Frame(app)
 operations_frame.grid(row=2, column=0, columnspan=2, pady=5)
 
 operations = ['+', '-', '*', '/']
+operator_buttons = {}
+
 for i, op in enumerate(operations):
     button = tk.Button(operations_frame, text=op, width=5, command=lambda o=op: set_operation(o))
     button.grid(row=0, column=i, padx=5, pady=5)
+    operator_buttons[op] = button
 
 # Add number pad and symbols
 buttons_frame = tk.Frame(app)
@@ -94,6 +105,7 @@ label_result.grid(row=5, column=0, columnspan=2, pady=5)
 
 # Operation variable
 operation_var = tk.StringVar(value="+")
+highlight_selected_operator("+")
 
 # Run the application
 app.mainloop()
