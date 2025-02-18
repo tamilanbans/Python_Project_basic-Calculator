@@ -73,3 +73,5 @@ button_calculate = tk.Button(app, text="=", width=5, height=2, font=("Arial", 14
 button_calculate.grid(row=3, column=0, columnspan=4, pady=10)
 
 app.mainloop()
+
+
