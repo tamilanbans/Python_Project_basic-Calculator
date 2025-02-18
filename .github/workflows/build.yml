@@ -1,0 +1,34 @@
+name: Build Calculator App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install pyinstaller
+
+      - name: Build Executable
+        run: pyinstaller --onefile --windowed calculator_app.py
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CalculatorApp
+          path: dist/calculator_app.exe
